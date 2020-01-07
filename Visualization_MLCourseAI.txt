@@ -1,0 +1,57 @@
+import pandas as pd
+from  matplotlib import pyplot as plt
+import seaborn as sns
+
+df=pd.read_csv('c:/users/baska/telecom_churn.csv')
+df.head()
+
+df.shape
+
+df['International plan'] = df['International plan'].map({'No' : 0,'Yes' : 1})
+df['Voice mail plan'] = df['Voice mail plan'].map({'No' : 0,'Yes':1})
+
+df['Churn'] = df['Churn'].astype('int')
+
+df.head()
+
+plt.rcParams['figure.figsize'] = (16,12)
+df.drop(['State'],axis = 1).hist()
+
+df.corr()
+
+sns.heatmap(df.corr())
+
+[feat_name for feat_name in df.columns
+if 'charge' in feat_name]
+
+df.drop([feat_name for feat_name in df.columns
+if 'charge' in feat_name],axis=1,inplace=True)
+
+df.shape
+
+df['Total day minutes'].describe()
+
+sns.boxplot(x='Total day minutes',data=df);
+
+plt.rcParams['figure.figsize']=(8,6)
+df['Total day minutes'].hist()
+
+df['State'].nunique()
+
+df['State'].value_counts().head()
+
+df['Churn'].value_counts(normalize=True)
+
+sns.countplot(x='Churn',data=df);
+
+plt.scatter(df['Total day minutes'],df['Customer service calls'])
+
+state=df['State']
+df.drop('State',axis=1,inplace=True)
+
+df.corrwith(df['Total day minutes'])
+
+pd.crosstab(df['Churn'],df['Customer service calls'])
+
+sns.countplot(x='Customer service calls',hue='Churn',data=df)
+
